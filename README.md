@@ -1,4 +1,9 @@
 
+# panoramas
+
+- https://cdn.pannellum.org/2.5/pannellum.htm#panorama=https://pannellum.org/images/alma.jpg
+
+# dev notes
 
 Project based on
 https://pannellum.org/documentation/overview/
