@@ -1,7 +1,8 @@
 
 # panoramas
 
-- https://cdn.pannellum.org/2.5/pannellum.htm#panorama=https://pannellum.org/images/alma.jpg
+- https://cdn.pannellum.org/2.5/pannellum.htm#panorama=https://stopsopa.github.io/pannellum/gran-canaria.jpg&autoLoad=true
+- https://cdn.pannellum.org/2.5/pannellum.htm#panorama=https://stopsopa.github.io/pannellum/gran-canaria2.jpg&autoLoad=true
 
 # dev notes
 
