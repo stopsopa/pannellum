@@ -17,4 +17,5 @@ this is taken from examples page:
 https://pannellum.org/documentation/examples/simple-example/
 
 Repository prepared to link in:
+https://stopsopa.github.io/pages/children/index.html
 
