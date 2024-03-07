@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="normalize.css" />
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <style>
+      body {
+        padding: 10px;
+      }
+      .g-inter {
+        font-family: Inter, sans-serif;
+        font-feature-settings: "liga" 1, "calt" 1, "zero", "ss01";
+      }
+      .flex {
+        display: flex;
+        flex-wrap: wrap;
+        span {
+          line-height: 0;
+        }
+        a {
+          font-size: 12px;
+          display: inline-block;
+          /* border: 2px solid #ccc; */
+          padding: 3px;
+          display: inline-block;
+          margin: 3px;
+          box-shadow: 0 0 7px black;
+          text-decoration: none;
+          color: black;
+          img {
+            border: 1px solid #ccc;
+            filter: grayscale(50%);
+            transition: filter 0.23s ease-in-out;
+          }
+          &:hover {
+            background-color: #ccc;
+            img {
+              filter: grayscale(0%);
+            }
+          }
+        }
+      }
+      a img {
+        vertical-align: bottom;
+      }
+    </style>
+  </head>
+  <body class="g-inter">
+    <div class="flex"></div>
+    <script>
+      /**
+ * usage
+ *
+  const div = box(`<input type="text" style="width: 100%" value="test">`, {
+      style: {
+          backgroundColor: "blue",
+          width: "50%",
+      },
+  });
+
+  const input = div.querySelector("input");
+
+  input.addEventListener("click", () => {
+      input.select();
+  });
+  */
+      function box(content, opt) {
+        if (!opt) {
+          opt = {};
+        }
+
+        var div = document.createElement("div");
+
+        const style = {
+          position: "fixed",
+          zIndex: "10000000",
+          top: "20%",
+          left: "50%",
+          border: "1px solid gray",
+          backgroundColor: "white",
+          transform: "translate(-50%, -50%)",
+          padding: "10px",
+          cursor: "pointer",
+        };
+
+        Object.assign(
+          div.style,
+          Object.entries(Object.assign({}, style, opt.style)).reduce(
+            (acc, [key, val]) => {
+              if (val !== false) acc[key] = val;
+              return acc;
+            },
+            {}
+          )
+        );
+
+        if (typeof content === "string") {
+          div.innerHTML = String(content);
+        } else {
+          node.innerHTML = "";
+          div.appendChild(content);
+        }
+
+        document.body.appendChild(div);
+
+        let divClicked = false;
+        div.addEventListener("click", () => {
+          log("div click");
+          divClicked = true;
+        });
+        function bodyclick() {
+          log("body click");
+          if (!divClicked) {
+            close();
+          }
+          divClicked = false;
+        }
+        function close() {
+          document.body.removeChild(div);
+
+          document.body.removeEventListener("click", bodyclick);
+        }
+
+        document.body.addEventListener("click", bodyclick);
+
+        if (opt.autoclose) {
+          setTimeout(
+            close,
+            Number.isInteger(opt.autoclose) ? opt.autoclose : 1000
+          );
+        }
+
+        typeof opt.fn === "function" && opt.fn(div);
+
+        return { div, close };
+      }
+
+      (async function () {
+        try {
+          const response = await fetch("ls2.txt");
+
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+
+          const text = await response.text();
+
+          const reg = /^\d{4}:\d{2}:\d{2} \d{2}:\d{2}:\d{2}$/;
+
+          const list = text
+            .split("\n")
+            .map((a) => a.trim())
+            .filter(Boolean)
+            .reduce((acc, item) => {
+              const el = item.split("::");
+
+              if (el.length !== 2) {
+                throw new Error(
+                  `Invalid item: ${item} after .split("::") it should have 2 elements but it is ${JSON.stringify(
+                    el
+                  )}`
+                );
+              }
+
+              if (!reg.test(el[1])) {
+                console.log(
+                  JSON.stringify(
+                    {
+                      reg: reg.toString(),
+                      el0: el[1],
+                    },
+                    null,
+                    4
+                  )
+                );
+                throw new Error(
+                  `Invalid item: ${item} after .split("::") second element should match ${reg} but it is >${el[1]}<`
+                );
+              }
+
+              console.log(el);
+
+              acc.push(el);
+
+              return acc;
+            }, []);
+
+          list.sort((a, b) => {
+            if (a[1] === b[1]) {
+              return 0;
+            }
+            return a[1] > b[1] ? -1 : 1;
+          });
+
+          console.log(list);
+
+          const div = document.querySelector("div");
+
+          list.forEach(([item, date]) => {
+            const a = document.createElement("a");
+
+            a.setAttribute(
+              "href",
+              `https://cdn.pannellum.org/2.5/pannellum.htm#panorama=https://stopsopa.github.io/pannellum/${item}&autoLoad=true`
+            );
+
+            a.innerHTML = `<img src="thumb/${item}" /><div>${date} | ${item}</div>`;
+
+            div.appendChild(a);
+          });
+        } catch (e) {
+          console.log(e);
+
+          const div = box(String(e), {
+            style: {
+              color: "#880101",
+              //   width: "50%",
+            },
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
