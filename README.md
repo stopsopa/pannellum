@@ -5,6 +5,7 @@
 - [gran-canaria2.jpg](https://cdn.pannellum.org/2.5/pannellum.htm#panorama=https://stopsopa.github.io/pannellum/gran-canaria2.jpg&autoLoad=true)
 - [david-vs-goliath.jpg](https://cdn.pannellum.org/2.5/pannellum.htm#panorama=https://stopsopa.github.io/pannellum/david-vs-goliath.jpg&autoLoad=true)
 - [timna.jpg](https://cdn.pannellum.org/2.5/pannellum.htm#panorama=https://stopsopa.github.io/pannellum/timna.jpg&autoLoad=true)
+- [timna2.jpg](https://cdn.pannellum.org/2.5/pannellum.htm#panorama=https://stopsopa.github.io/pannellum/timna2.jpg&autoLoad=true)
 - [timna-shlomo-pillars.jpg](https://cdn.pannellum.org/2.5/pannellum.htm#panorama=https://stopsopa.github.io/pannellum/timna-shlomo-pillars.jpg&autoLoad=true)
 
 # dev notes
